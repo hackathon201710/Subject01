@@ -26,19 +26,34 @@ export class HomePage {
   }
 
   startScanning() {
+    console.log('Enter startScanning');
     this.pairedDevices = null;
     this.unpairedDevices = null;
     this.gettingDevices = true;
+    console.log('Before list');
+    this.bluetoothSerial.list().then((success) => {
+      console.log('Inside List ' + success);
+      this.pairedDevices = success;
+      debugger;
+    },
+      (err) => {
+        console.log('his.bluetoothSerial.list error' + err);
+      })
+
+/*     console.log('Before startScanning');
     this.bluetoothSerial.discoverUnpaired().then((success) => {
+      console.log('Inside startScanning');
       this.unpairedDevices = success;
       this.gettingDevices = false;
       success.forEach(element => {
-        // alert(element.name);
+        console.log('Inside startScanning success');
+        alert(element.name);
       });
     },
       (err) => {
+        console.log('startScanning error');
         console.log(err);
-      })
+      }) */
 
     this.bluetoothSerial.list().then((success) => {
       this.pairedDevices = success;
