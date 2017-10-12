@@ -36,16 +36,12 @@ export class HomePage {
               this.pairedDevices = success;
               for (let i = 0; i < this.pairedDevices.length; i++) {
                   console.log(this.pairedDevices[i].name + " : " + this.pairedDevices[i].address);
-                  if (this.pairedDevices[i].name == "Andreass MacBook Pro") {
                       this.pairedDeviceName = this.pairedDevices[i].name;
                       this.pairedDeviceAddress = this.pairedDevices[i].address;
 
                       console.log(this.pairedDeviceName + " : " + this.pairedDeviceAddress);
-
                       console.log("Trying to connect");
                       this.bluetoothSerial.connect(this.pairedDeviceAddress).subscribe(this.success, this.fail);
-
-                  }
               }
           },
           (err) => {
