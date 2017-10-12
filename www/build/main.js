@@ -79,7 +79,8 @@ var HomePage = (function () {
         this.bluetoothSerial.list().then(function (success) {
             console.log('Inside List ' + success);
             _this.pairedDevices = success;
-            debugger;
+            for (var i = 0; i < success.length; i++) {
+            }
         }, function (err) {
             console.log('his.bluetoothSerial.list error' + err);
         });
@@ -97,10 +98,6 @@ var HomePage = (function () {
                 console.log('startScanning error');
                 console.log(err);
               }) */
-        this.bluetoothSerial.list().then(function (success) {
-            _this.pairedDevices = success;
-        }, function (err) {
-        });
     };
     HomePage.prototype.selectDevice = function (address) {
         var _this = this;
