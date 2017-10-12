@@ -33,6 +33,7 @@ export class HomePage {
   constructor(private bluetoothSerial: BluetoothSerial, public navCtrl: NavController, public geolocation: Geolocation, private alertCtrl: AlertController) {
     bluetoothSerial.enable();
 
+    //List paired devices and subscribe/connect to the first.
       this.bluetoothSerial.list().then((success) => {
               console.log('Inside List ' + success);
               this.pairedDevices = success;
@@ -54,6 +55,7 @@ export class HomePage {
     // this.loadMap();
   }
 
+  //Writes a message to bluetooth connection
   write() {
     this.bluetoothSerial.write("hello, world");
   }
@@ -61,11 +63,14 @@ export class HomePage {
   success = (data) => alert(data);
   fail = (error) => alert(error);
 
+  //On connection success, start map tracking
   onData(data) {
-        console.log(data + "Hello");
+        console.log(data);
         alert(data);
         this.emergencyButtonPressed();
   }
+
+  //Start map tracking
   emergencyButtonPressed() {
    // clearInterval(intervalFunction);
     intervalFunction = setInterval(() => {
