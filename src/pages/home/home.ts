@@ -43,7 +43,7 @@ export class HomePage {
 
                       console.log(this.pairedDeviceName + " : " + this.pairedDeviceAddress);
                       console.log("Trying to connect");
-                      this.bluetoothSerial.connect(this.pairedDeviceAddress).subscribe(this.success, this.fail);
+                      this.bluetoothSerial.connect(this.pairedDeviceAddress).subscribe(this.onData, this.fail);
               }
           },
           (err) => {
@@ -61,7 +61,11 @@ export class HomePage {
   success = (data) => alert(data);
   fail = (error) => alert(error);
 
-
+  onData(data) {
+        console.log(data + "Hello");
+        alert(data);
+        this.emergencyButtonPressed();
+  }
   emergencyButtonPressed() {
    // clearInterval(intervalFunction);
     intervalFunction = setInterval(() => {

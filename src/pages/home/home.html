@@ -18,16 +18,7 @@
     <ion-item *ngFor="let device of pairedDevices">
       {{device.name}}
     </ion-item>
-    <button ion-button block (click)="write()">Disconnect</button>
-    <ion-list-header>
-      availlable Devices
-    </ion-list-header>
-    <ion-item *ngFor='let device of unpairedDevices'>
-      <span (click)="selectDevice(device.address)">
-        {{device.name}}
-      </span>
-    </ion-item>
-    <ion-spinner name="crescent" *ngIf="gettingDevices"></ion-spinner>
+    <button ion-button block (click)="write()">Trigger</button>
   </ion-list>
 
   <br>
