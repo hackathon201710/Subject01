@@ -73,13 +73,21 @@
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": " "
       },
-      "cordova-plugin-bluetooth-serial": {},
+      "cordova-plugin-media-capture": {
+        "CAMERA_USAGE_DESCRIPTION": " ",
+        "MICROPHONE_USAGE_DESCRIPTION": " ",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+      },
       "cordova-plugin-device": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-whitelist": {},
-      "ionic-plugin-keyboard": {}
+      "ionic-plugin-keyboard": {},
+      "cordova-background-video": {
+        "CAMERA_USAGE_DESCRIPTION": "Use for video messages",
+        "MICROPHONE_USAGE_DESCRIPTION": " "
+      }
     },
     "platforms": [
       "ios"

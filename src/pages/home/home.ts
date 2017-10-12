@@ -2,8 +2,16 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+//import { MediaCapture } from '@ionic-native/media-capture';
+import { Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+
+import * as $fh from 'fh-js-sdk';
 
 declare var google;
+var intervalFunction;
+//declare var cordova;
 
 @Component({
   selector: 'page-home',
@@ -16,13 +24,14 @@ export class HomePage {
   unpairedDevices: any;
   pairedDevices: any;
   gettingDevices: Boolean;
+  private headers = new Headers({'Content-Type': 'application/json'});
+
 
   constructor(private bluetoothSerial: BluetoothSerial, public navCtrl: NavController, public geolocation: Geolocation, private alertCtrl: AlertController) {
     bluetoothSerial.enable();
   }
-
   ionViewDidLoad() {
-    this.loadMap();
+   // this.loadMap();
   }
 
   startScanning() {
@@ -111,13 +120,31 @@ export class HomePage {
     alert.present();
   }
 
-  loadMap() {
 
-    this.geolocation.getCurrentPosition().then((position) => {
+  emergencyButtonPressed(){
+    clearInterval(intervalFunction);
+    intervalFunction = setInterval(() => {
+      this.geolocation.getCurrentPosition().then((position) =>{
+        if(!this.map){
+          this.initMap(position.coords.latitude, position.coords.longitude);
+        }
+        else{
+          this.updateMap(position.coords.latitude, position.coords.longitude);
+        }
+        console.log("skicka pos: " + position.coords.latitude + " " +  position.coords.longitude)
 
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        this.postLocation(position.coords.latitude, position.coords.longitude);
 
-      let mapOptions = {
+      }, (err) =>{
+      console.log(err);
+    })
+  }, 2000);
+  }
+
+initMap(lat, long){
+    let latLng = new google.maps.LatLng(lat, long);
+
+       let mapOptions = {
         center: latLng,
         zoom: 15
       }
@@ -129,12 +156,35 @@ export class HomePage {
         animation: google.maps.Animation.DROP,
         position: this.map.getCenter()
       });
+}
 
-    }, (err) => {
-      console.log(err);
-    })
-
+  updateMap(lat, long){
+      new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: this.map.getCenter()
+      });
   }
 
+  postLocation(lat, long){
+//'http://localhost:3000/location'
 
+ $fh.cloud({
+          path:'location',
+          method: "POST",
+           data: {
+           longitude: long,
+            latitude: lat
+        }
+      }, function(res) {
+          console.log('success: ', res);
+      }, function(err) {
+          console.log("error");
+      });
+
+  /*this.http.post('https://polisen-raukdn4hwmk5hf54qybpwwkq-dev.mbaas1.tom.redhatmobile.com/location', JSON.stringify({lat: latitude, long: longitude}), {headers: this.headers}).subscribe(res => {
+        console.log("successs");
+      });*/
+
+}
 }

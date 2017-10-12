@@ -7,6 +7,7 @@
 </ion-header>
 
 <ion-content padding>
+   <button ion-button color="danger" (click)="emergencyButtonPressed()" full>EMERGENCY</button>
   <div #map id="map"></div>
 
   <ion-list padding>
@@ -29,4 +30,5 @@
     <ion-spinner name="crescent" *ngIf="gettingDevices"></ion-spinner>
   </ion-list>
 
+  <br>
 </ion-content>
