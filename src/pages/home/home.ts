@@ -25,6 +25,8 @@ export class HomePage {
   pairedDevices: any;
   gettingDevices: Boolean;
   private headers = new Headers({ 'Content-Type': 'application/json' });
+  longitude: string; 
+  latitude: string;
 
   constructor(private bluetoothSerial: BluetoothSerial, public navCtrl: NavController, public geolocation: Geolocation, private alertCtrl: AlertController) {
     bluetoothSerial.enable();
@@ -121,10 +123,13 @@ export class HomePage {
 
 
   emergencyButtonPressed() {
-    clearInterval(intervalFunction);
+   // clearInterval(intervalFunction);
     intervalFunction = setInterval(() => {
       this.geolocation.getCurrentPosition().then((position) => {
-        if (!this.map) {
+         this.showPosition(position.coords.latitude, position.coords.longitude);
+       //  this.latitude = position.coords.latitude;
+       //  this.longitude = position.coords.longitude;
+      if (!this.map) {
           this.initMap(position.coords.latitude, position.coords.longitude);
         }
         else {
@@ -133,11 +138,18 @@ export class HomePage {
         console.log("skicka pos: " + position.coords.latitude + " " + position.coords.longitude)
 
         this.postLocation(position.coords.latitude, position.coords.longitude);
+        //console.log("skicka pos2: " + position.coords.latitude + " " + position.coords.longitude)
 
       }, (err) => {
         console.log(err);
       })
-    }, 2000);
+    }, 5000);
+  }
+
+  showPosition(latitude, longitude){
+    console.log(latitude + " " + longitude);
+    this.latitude = latitude;
+     this.longitude = longitude;
   }
 
   initMap(lat, long) {
@@ -158,10 +170,11 @@ export class HomePage {
   }
 
   updateMap(lat, long) {
+     let latLng = new google.maps.LatLng(lat, long);
     new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
+      position: latLng
     });
   }
 

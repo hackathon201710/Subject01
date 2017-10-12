@@ -9,6 +9,7 @@
 <ion-content padding>
    <button ion-button color="danger" (click)="emergencyButtonPressed()" full>EMERGENCY</button>
   <div #map id="map"></div>
+  <div>{{latitude}}  {{longitude}}</div>
 
   <ion-list padding>
     <button ion-button block (click)="startScanning()">scan</button>
