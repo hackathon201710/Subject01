@@ -1,5 +1,12 @@
-# Subject01
-Subject01
+# Subject01 Emergency tracker
+
+**When:** A person presses a button on a raspberry pi
+
+**Then:** The raspberry pi sends a Bluetooth command to an app that should send geolocation of the smartphone to a backend server and display it on a Google map.
+
+**Extra bonus:** Activate the camera on the smartphone and record for 1 minute and store it locally.
+
+
 
 
 ## Links used to develop this
@@ -10,10 +17,9 @@ Subject01
 ## Conclusions
 
 * It is not possible to start live recording from a locked iPhone state by sending a Bluetooth command. The reason is that this would allow others to start recording without the user knowing. The only way to start recording is if the user presses the start recording button.
-iOS is much more restrictive than android regarding to allow the app see paired Bluetooth devices.
-
-*Building hybrid apps with Ionic 3 is very painful when the app needs access to Bluetooth, camera and GPS.
-Some Bluetooth did not work on a iOS but worked on Android
-Showing Google maps did work on iOS but not on Android
-The GPS worked on Android but not so good on iOS
-Native development might be better than hybrid for cases like this.
+* iOS is much more restrictive than android regarding to allow the app see paired Bluetooth devices.
+* Building hybrid apps with Ionic 3 is very painful when the app needs access to Bluetooth, camera and GPS.
+  * Some Bluetooth commands did not work on a iOS but worked on Android
+  * Showing Google maps did work on iOS but not on Android
+  * The GPS worked on Android but not so good on iOS
+* Native development might be better than hybrid for cases like this.
